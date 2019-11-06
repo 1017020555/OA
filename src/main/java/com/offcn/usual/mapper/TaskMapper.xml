@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.offcn.usual.mapper.TaskMapper">
+    <resultMap id="g" type="com.offcn.usual.bean.Task">
+        <id column="id" property="id"/>
+        <result column="starttime" property="starttime"/>
+        <result column="endtime" property="endtime"/>
+        <result column="level" property="level"/>
+        <result column="remark" property="remark"/>
+        <result column="tasktitle" property="tasktitle"/>
+        <result column="status" property="status"/>
+        <association property="function"  javaType="com.offcn.project.bean.Function">
+            <id property="id" column="id"/>
+            <result property="functionname" column="functionname"/>
+            <association javaType="com.offcn.project.bean.Module" property="module">
+                <id column="id"/>
+                <result column="modname" property="modname"/>
+                <association property="analysis" javaType="com.offcn.project.bean.Analysis" >
+                    <id column="id"/>
+                    <result property="title" column="title"/>
+                    <association property="project" javaType="com.offcn.project.bean.Project">
+                        <id column="pid" property="pid"/>
+                        <result column="pname" property="pname"/>
+                    </association>
+                </association>
+            </association>
+        </association>
+
+    </resultMap>
+    <select id="getAll" resultMap="g">
+        SELECT t.`starttime`,t.`endtime`,t.level,t.`remark`,t.`tasktitle`,t.`status` , f.`functionname` ,m.`modname`,a.`title`,p.`pname` FROM task AS t
+LEFT JOIN `function` AS f ON f.`id`=t.`emp_fk2`
+LEFT JOIN module AS m ON m.`id`=f.`modele_fk`
+LEFT JOIN `analysis` AS a ON a.`id`=m.`analysis_fk`
+LEFT JOIN project AS p ON p.`pid`=a.`id`
+    </select>
+
+
+</mapper>

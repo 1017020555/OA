@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.offcn.project.mapper.ProjectMapper">
+
+<select id="getAllProjects" resultType="com.offcn.project.bean.Project">
+    select pid ,pname,comname,comper,emp_fk1 as empk1,empcount,starttime,buildtime,cost,level,endtime,project.remark,emp_fk as empFk from project
+</select>
+
+<select id="getAllProName" resultType="com.offcn.cust.bean.Customer">
+    select * from customer
+</select>
+<select id="getAllProName2" resultType="com.offcn.cust.bean.Customer">
+     select * from customer where id=#{id}
+</select>
+<select id="getAllProName3" resultType="com.offcn.project.bean.Project">
+        select * from project where pid=#{cid}
+</select>
+
+
+    <select id="sub" resultType="com.offcn.project.bean.Project">
+      SELECT * FROM project,employee WHERE project.emp_fk=1
+      AND employee.ename LIKE #{key}  ORDER BY #{ord} DESC
+    </select>
+    <select id="sub1" resultType="com.offcn.project.bean.Project">
+        SELECT * FROM project,employee WHERE project.emp_fk=1
+        AND employee.ename LIKE #{key}  ORDER BY #{ord} DESC
+    </select>
+
+
+    <select id="attachement" resultType="com.offcn.project.bean.Project">
+        select * from project
+    </select>
+
+    <insert id="upload">
+        insert into attachement(null,1,attname,attdis,pa,remark) values(null,1,#{attname},#{attdis},#{pa},#{remark})
+    </insert>
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.offcn.cust.mapper.CustomerMapper">
+    <select id="getAllCust" resultType="com.offcn.cust.bean.Customer">
+        select * from customer
+    </select>
+    <insert id="add">
+        insert into customer VALUES (NULL,#{comname},#{companyperson},#{comaddress},#{comphone},#{camera},#{present},#{remark},#{addtime})
+    </insert>
+    <select id="getCustomer" resultType="com.offcn.cust.bean.Customer">
+        select * from customer where id=#{id}
+    </select>
+    <select id="edit1" resultType="com.offcn.cust.bean.Customer">
+        select * from customer where id=#{id}
+    </select>
+    <update id="edit">
+        update customer set comname=#{comname},companyperson=#{companyperson},
+        comaddress=#{comaddress},comphone=#{comphone},camera=#{camera},present=#{present},
+        remark=#{remark} where id =#{id}
+    </update>
+
+    <delete id="delete">
+        delete from customer where id IN
+        <foreach collection="list" item="l" separator="," open="(" close=")">
+           #{l}
+        </foreach>
+    </delete>
+
+    <select id="selectByComname" resultType="com.offcn.cust.bean.Customer">
+        select * from customer where comname LIKE #{key} order by addtime DESC
+    </select>
+    <select id="selectByComname1" resultType="com.offcn.cust.bean.Customer">
+        select * from customer where comname LIKE #{key} order by addtime ASC
+    </select>
+
+
+    <select id="selectAll" resultType="com.offcn.cust.bean.Customer">
+        select * from customer where comname LIKE  #{keyword}
+    </select>
+</mapper>

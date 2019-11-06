@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.offcn.usual.mapper.BaoXiaoMapper">
+
+    <select id="getAllBaoXiao" resultType="com.offcn.usual.bean.Baoxiao">
+        select * from baoxiao WHERE bxstatus=#{status} and bxremark LIKE #{keyword}
+    </select>
+
+    <select id="getAllBaoXiao1" resultType="com.offcn.usual.bean.Baoxiao">
+        select DISTINCT(paymode) from baoxiao
+    </select>
+    <select id="getAllBaoXiao2" resultType="com.offcn.usual.bean.Baoxiao">
+        select * from baoxiao
+    </select>
+
+    <insert id="saveInfo">
+        insert into baoxiao(bxid,paymode,totalmoney,bxtime,bxremark) values(#{bxid},#{paymode},
+        #{totalmoney},#{bxtime},#{bxremark})
+    </insert>
+</mapper>

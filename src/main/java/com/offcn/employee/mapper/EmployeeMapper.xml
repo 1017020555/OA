@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offcn.employee.mapper.EmployeeMapper">
+
+    <resultMap id="l" type="com.offcn.employee.bean.Employee">
+        <id column="eid" property="eid"></id>
+        <result column="ename" property="ename"></result>
+        <result column="email" property="archives.email"></result>
+    </resultMap>
+<select id="li" resultMap="l">
+    SELECT  e.`eid`,e.`ename`,a.`email`
+FROM employee AS e
+INNER JOIN archives AS a ON
+e.`eid`=a.`emp_fk`
+</select>
+
+    <select id="login" resultType="com.offcn.employee.bean.Employee">
+        select * from employee where username=#{username} and password=#{password}
+    </select>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.offcn.auth.mapper.SourcesMapper">
+    <select id="getSourcesListByPid" resultType="com.offcn.auth.bean.Sources">
+      select * from sources where pid=#{id}
+    </select>
+    <insert id="saveInfo">
+        insert into sources values(null,#{name},#{url},#{remark},#{pid},NULL)
+    </insert>
+    <select id="getOneById" resultType="com.offcn.auth.bean.Sources">
+        select * from sources where id=#{id}
+    </select>
+<update id="updateInfo">
+     update sources set name=#{name},url=#{url},remark=#{remark} where id=#{id}
+</update>
+    <delete id="delete">
+        delete from sources where id=#{id}
+    </delete>
+
+    <select id="getSourcesByEid" resultType="com.offcn.auth.bean.Sources">
+        SELECT s.* FROM employee AS e
+            LEFT JOIN emp_role AS er
+            ON e.`eid`=er.`eid`
+            LEFT JOIN role AS r
+            ON er.`rid`=r.`roleid`
+            LEFT JOIN role_sources AS rs
+            ON rs.`rid`=r.`roleid`
+            LEFT JOIN sources AS s
+            ON s.`id`=rs.`sid`
+            WHERE e.`eid`=2 AND s.`pid`=1
+    </select>
+</mapper>
